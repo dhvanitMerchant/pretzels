@@ -1,0 +1,29 @@
+extends ../layouts/main.pug
+block content
+  .container
+    header
+      h1= title
+
+    div
+      table.table.table-striped
+        thead
+          tr
+            th Title
+            th Category
+            th Author
+            th
+        
+        tbody
+          each book in books
+            tr
+              td
+                a(href=`/books/${book.id}`)= book.title
+              td= book.category
+              td= `${book.author.firstName} ${book.author.lastName}`
+              td
+                a(href=`/books/${book.id}/edit`) edit
+                = ` | `
+                form.destroy(action=`/books/destroy`, method="POST")
+                  input(type="hidden", name="id", value=`${book.id}`)
+                  input.destroy(type="submit", value="destroy")
+          
